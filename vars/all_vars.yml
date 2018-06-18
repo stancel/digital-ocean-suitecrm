@@ -1,0 +1,183 @@
+---
+# All variables needed to run this playbook or project
+
+# Ansible is flexible and there are many ways you can choose to place variables for the playbooks and roles they run. My preference is to keep any desired default values in their place in the playbooks or roles, but have one file to edit where required variables can be placed and/or default values overridden. My chosen pattern is to create this file for any playbook/project and place the required and desired variables here. This gives: a central place to edit needed values, the highest level of variable precedence and no need to re-pass variables when importing other playbooks into this project since variables placed here are also global in scope. To achieve this when running the playbook/project we will pass this file as parameter like so:
+# ansible-playbook master.yml -e @vars/all_vars.yml -e @vars/vault.yml -i hosts/production
+
+
+#####     Required Variables      #####
+
+
+#####   Role - create-digitalocean-droplet  #####
+
+# Host Name of the droplet, also the droplet name as shown in DigitalOcean
+host_name: "Fill in"
+
+# The Fully Qualified Domain Name you'll be using for the server you are creating. DO DNS will create an A record for this entry and point it to your newly created droplet.
+server_fqdn: "Fill in"
+
+# You must have your DigitalOcean API token saved into this environment variable
+do_token: "{{ lookup('env', 'DO_API_TOKEN') }}"
+
+# See the README file for more information here
+ssh_keys:
+  - "Fill in"
+  - "Fill in"
+
+# The size of your Droplet. See options in your DO account or their API documentation for a list
+droplet_size: "1gb"
+
+# The droplet image to use. Here we are using a base Ubuntu 16.04 LTS image
+droplet_image: "ubuntu-16-04-x64"
+
+# The DO datacenter region for your droplet
+region: "nyc1"
+
+
+#####   Role - apache-webserver     #####
+
+# The Fully Qualified Domain Name you'll be using for the server you are creating.
+#server_fqdn: "yourdomainhere.com"    # Covered above
+
+# The Apache Server Alias directive
+server_alias: "*.{{server_fqdn}}"
+
+# Path to your SSL Cert file
+ssl_certificate_file: "{{ lookup('file', 'Fill in path to your cert') }}"
+
+# Path to your private key
+ssl_certificate_key_file: "{{ lookup('file', 'Fill in path to your key') }}" 
+
+# Path to the Certificate Authority Cert file
+ssl_ca_certificate_file: "{{ lookup('file', 'Fill in path to your CA cert') }}" 
+
+
+#####   Role - tersmitten.percona-server    #####
+
+percona_server_version: 5.7
+
+#percona_server_root_password: ''   #included in vault.yml
+
+#percona_server_databases_present:  #included in git-download-suitecrm
+#  - name: bugtracker
+  
+percona_server_users_present_hosts:
+  - 'localhost'
+  - '%'
+
+#included in vault.yml
+#percona_server_users_present:
+#  - name: mantisWebUser
+#    password: ''    
+#    privs:
+#      - 'bugtracker.*:TRIGGER,CREATE ROUTINE,CREATE TEMPORARY TABLES,CREATE VIEW,ALTER ROUTINE,REFERENCES,EVENT,SHOW VIEW,EXECUTE,ALTER,DROP,CREATE,INDEX,SELECT,INSERT,UPDATE,DELETE'
+#    hosts:
+#      - '%'
+
+percona_server_etc_my_cnf:
+  - section: mysqld
+    options:
+      - name: bind-address
+        value: "0.0.0.0"
+
+
+#####   Role - setup-mysql-backups  #####
+
+# List of databases to backup
+dbs_to_backup: 
+  - "suitecrm"
+
+# MySQL / MariaDB root password
+mysql_root_password: "{{ percona_server_root_password }}"
+
+
+#####   Role - install-bareos-client    #####
+
+# The Bareos Director password for the Bareos File Daemon service being installed. This should be a very long string (47 characters is the default) and must match the applicable records 
+#client_password: "4tg2z6K8iQw6a8uPNPWknccHYD5vtsGWa4uGEZAAYmjWXmJ"  #included in vault.yml
+
+# Which (numerical) version of Ubuntu you are installing this onto
+bareos_ubuntu_install_version: "16.04"
+
+
+#####   Role - add-server-to-bareos-backups     #####
+
+
+# The hostname of the machine you are backing up
+# host_name: "To Be Filled In"   # Covered above
+
+# The fully qualified domain name or IP address of the machine you are adding to be backed up
+# server_fqdn: "To Be Filled In" # Covered above
+
+# It needs to match the client_password entered when adding the bareos client program to the machine you want to backup. The value for this is usually a very long string (47 characters) of random characters.
+# client_password: "To Be Filled In" # Covered above
+
+# The fully qualified domain name or IP address of where your Bareos Storage Daemon/Service is running. For most people this will probably be the same FQDN of where the Bareos Director daemon/service runs (your Bareos Server), but can be a separate machine.
+bareos_storage_daemon_fqdn: "Fill in"
+
+# The storage director password variable is the bareos-dir password found on your Bareos Server
+storage_director_password: "{{ lookup('env', 'BAREOS_STORAGE_PASSWORD') }}"
+
+# Backup Level - Full, Incremental, Differential
+# Incremental - all ﬁles changed since the last Full, Diﬀerential, or Incremental backup started
+# Diﬀerential - all ﬁles speciﬁed in the FileSet that have changed since the last successful *Full* backup will be backed up
+# Full - all ﬁles in the FileSet whether or not they have changed will be backed up
+level: Incremental
+
+# Permits you to control the order in which your jobs will be run. The higher the number, the lower the job priority. 
+priority: 6
+
+# See the README documentation for more detailed info on these variables
+backup_schedule:
+  - Run = Full sun at 02:00
+  - Run = Incremental mon-sat at 02:00
+
+archive_device: "/z-storage/backups/{{ host_name }}"
+
+filesets_to_backup:
+  - File = "/var/www/html"
+  - File = "/etc/apache2"
+  - File = "/backups/mysql/current"
+filesets_to_exclude:
+  - File = "/var/www/html/.github"
+  - File = "/var/www/html/.git"
+  - File = "/var/www/html/.gitignore"
+
+
+#####   Role - install-nagios-client     #####
+
+# Fully qualified domain name of your Nagios Server
+nagios_server_fqdn: "Fill in"
+
+# The fully qualified domain name or IP address of the machine you are adding to be monitored
+#server_fqdn: "To Be Filled In"     # Covered above
+
+
+
+#####   Role - add-config-to-nagios-server     #####
+
+# The hostname of the machine you are monitoring. Host names should not have spaces in them.
+#host_name: "my-server"   # Covered above
+
+# The alias or Nagios friendly name to show in Nagios as the computer being monitored
+nagios_friendly_name: "Fill in"     
+
+# The fully qualified domain name or IP address of the machine you are adding to be monitored
+#server_fqdn: "myserver-to-monitor.com"     # Covered above
+
+
+#####   Role - git-download-suitecrm     #####
+
+# Choose the git tagged release that you would like to download and install. Comment this out if using a git branch instead.
+tagged_release_version: "v7.10.6"
+
+# The DB user to create when to be used by the SuiteCRM application
+#db_user: "suitecrmDbUser"                      #included in vault.yml
+
+# The password for the DB user being created
+#db_password: "some-really-secure-password"     #included in vault.yml
+
+# The root password for your MySQL, MariaDB or Percona Server DB instance to create the DB and user.
+#mysql_root_password: "your MySQL root password"    # Covered above
+
+

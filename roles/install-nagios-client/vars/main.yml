@@ -1,0 +1,13 @@
+---
+# vars file for install-nagios-client
+
+#####     Required Variables      #####
+# Fill in appropriate values below unless passing from a higher precedence
+
+
+# Fully qualified domain name of your Nagios Server
+nagios_server_fqdn: "nagios.mydomain.com"
+
+# The fully qualified domain name or IP address of the machine you are adding to be monitored
+server_fqdn: "To Be Filled In"
+

@@ -1,0 +1,27 @@
+---
+# vars file for add-config-to-nagios-server
+
+#####     Required Variables      #####
+# Fill in appropriate values below unless passing from a higher precedence
+
+# The hostname of the machine you are monitoring. Host names should not have spaces in them.
+host_name: "my-server"   
+
+# The alias or Nagios friendly name to show in Nagios as the computer being monitored
+nagios_friendly_name: "My Important Server"    
+
+# The fully qualified domain name or IP address of the machine you are adding to be monitored
+server_fqdn: "myserver-to-monitor.com"     
+
+
+
+
+
+
+
+
+
+
+
+
+

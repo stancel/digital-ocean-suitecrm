@@ -1,0 +1,23 @@
+galaxy_info:
+  author: 'Brad Stancel'
+  description: Role to have a bash script run nightly on a cron job to backup a list of MySQL/MariaDB databases
+  company: YourOnlineDept.com
+
+  license: BSD
+
+  min_ansible_version: 2.4
+
+  github_branch: master
+
+  platforms:
+  - name: Ubuntu
+    versions:
+      - trusty
+      - xenial
+
+  galaxy_tags: 
+    - mysql
+    - mysqldump
+    - backup
+
+dependencies: []

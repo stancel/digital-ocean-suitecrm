@@ -1,0 +1,56 @@
+# Role Requirements are placed here. Some examples are below:
+
+# Install a role from Ansible Galaxy
+# - src: zaiste.nginx
+
+# Install a role from Github
+# - name: essentials
+#   src: https://github.com/zaiste/ansible-essentials
+
+# Install a role from Github using a branch
+#- name: essentials
+#  src: https://github.com/zaiste/ansible-essentials
+#  version: origin/master
+
+# Install a role from Github using a tag
+#- name: essentials
+#  src: https://github.com/zaiste/ansible-essentials
+#  version: 0.0.3
+
+- name: create-digitalocean-droplet
+  src: git+https://github.com/stancel/create-digitalocean-droplet
+  version: 1.0.0
+
+- name: apache-webserver
+  src: git+https://github.com/stancel/apache-webserver
+  version: 1.0.0
+
+- src: tersmitten.percona-server
+
+- name: setup-mysql-backups
+  src: git+https://github.com/stancel/setup-mysql-backups.git
+  version: 1.0.0
+
+- name: install-bareos-client
+  src: https://github.com/stancel/install-bareos-client
+  version: 1.0.0
+  
+- name: add-job-to-bareos-director
+  src: https://github.com/stancel/add-job-to-bareos-director
+  version: 1.0.0
+
+- name: install-nagios-client
+  src: https://github.com/stancel/install-nagios-client
+  version: 1.0.2
+
+- name: add-config-to-nagios-server
+  src: https://github.com/stancel/add-config-to-nagios-server
+  version: 1.0.0
+
+- name: git-download-suitecrm
+  src: https://github.com/stancel/git-download-suitecrm
+  version: 1.2.0
+
+
+
+

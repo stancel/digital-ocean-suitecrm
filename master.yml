@@ -1,0 +1,32 @@
+---
+
+- hosts: localhost 
+  roles:
+    - create-digitalocean-droplet
+
+- hosts: new_server
+  gather_facts: false
+  remote_user: root
+  become: true
+  become_method: sudo
+  tasks:
+    - name: Install Python 2.x
+      raw: which python || sudo apt-get update && sudo apt-get install -qq -y python-simplejson 
+      register: python_check
+      changed_when: python_check.stdout is not search('/usr/bin/python')
+
+- hosts: new_server
+  roles:
+    - apache-webserver
+    - tersmitten.percona-server
+    - setup-mysql-backups
+    - install-bareos-client
+    - install-nagios-client
+    - git-download-suitecrm
+
+- hosts: backups monitoring 
+  roles:
+    - add-job-to-bareos-director
+    - add-config-to-nagios-server
+
+

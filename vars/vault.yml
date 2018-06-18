@@ -1,0 +1,25 @@
+---
+# Vault/protected variables needed to run this playbook or project
+
+
+
+#####   Role - tersmitten.percona-server    #####
+
+percona_server_root_password: 'Fill in'
+      
+
+
+#####   Role - install-bareos-client    #####
+
+# The Bareos Director password for the Bareos File Daemon service being installed. This should be a very long string (47 characters is the default) and must match the applicable records 
+client_password: "Fill in"
+
+
+#####   Role - git-download-mantis     #####
+
+# The DB user to create when to be used by the SuiteCRM application
+db_user: "Fill inr"
+
+# The password for the DB user being created
+db_password: "Fill in"
+

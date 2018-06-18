@@ -1,0 +1,25 @@
+galaxy_info:
+  author: 'Brad Stancel'
+  description: Basic Ansible role to add a server to be monitored by Nagios
+  company: YourOnlineDept.com
+
+  license: GPLv3
+
+  min_ansible_version: 2.4
+
+  # If this a Container Enabled role, provide the minimum Ansible Container version.
+  # min_ansible_container_version:
+
+  #github_branch:
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+    - xenial
+
+  galaxy_tags: 
+    - nagios-server
+    - monitoring
+
+dependencies: []
