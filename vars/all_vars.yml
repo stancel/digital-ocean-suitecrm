@@ -21,8 +21,8 @@ do_token: "{{ lookup('env', 'DO_API_TOKEN') }}"
 
 # See the README file for more information here
 ssh_keys:
-  - "Fill in"
-  - "Fill in"
+  - "{{ lookup('env', 'DO_SSH_KEY_SIG_BRAD_PERSONAL') }}"
+  - "{{ lookup('env', 'DO_SSH_KEY_SIG_ATL_SERVER') }}"
 
 # The size of your Droplet. See options in your DO account or their API documentation for a list
 droplet_size: "1gb"
@@ -42,14 +42,18 @@ region: "nyc1"
 # The Apache Server Alias directive
 server_alias: "*.{{server_fqdn}}"
 
+ssl_cert_file_path: "{{ lookup('env', 'DO_SSL_CERT_FILE') }}"
+ssl_cert_key_file_path: "{{ lookup('env', 'DO_SSL_CERT_KEY_FILE') }}"
+ssl_ca_cert_file_path: "{{ lookup('env', 'DO_SSL_CA_CERT_FILE') }}"
+
 # Path to your SSL Cert file
-ssl_certificate_file: "{{ lookup('file', 'Fill in path to your cert') }}"
+ssl_certificate_file: "{{ lookup('file', '{{ ssl_cert_file_path }}') }}"
 
 # Path to your private key
-ssl_certificate_key_file: "{{ lookup('file', 'Fill in path to your key') }}" 
+ssl_certificate_key_file: "{{ lookup('file', '{{ ssl_cert_key_file_path }}') }}" 
 
 # Path to the Certificate Authority Cert file
-ssl_ca_certificate_file: "{{ lookup('file', 'Fill in path to your CA cert') }}" 
+ssl_ca_certificate_file: "{{ lookup('file', '{{ ssl_ca_cert_file_path }}') }}" 
 
 
 #####   Role - tersmitten.percona-server    #####
@@ -113,7 +117,7 @@ bareos_ubuntu_install_version: "16.04"
 # client_password: "To Be Filled In" # Covered above
 
 # The fully qualified domain name or IP address of where your Bareos Storage Daemon/Service is running. For most people this will probably be the same FQDN of where the Bareos Director daemon/service runs (your Bareos Server), but can be a separate machine.
-bareos_storage_daemon_fqdn: "Fill in"
+bareos_storage_daemon_fqdn: "{{ lookup('env', 'BAREOS_STORAGE_DAEMON_FQDN') }}"
 
 # The storage director password variable is the bareos-dir password found on your Bareos Server
 storage_director_password: "{{ lookup('env', 'BAREOS_STORAGE_PASSWORD') }}"
@@ -147,7 +151,7 @@ filesets_to_exclude:
 #####   Role - install-nagios-client     #####
 
 # Fully qualified domain name of your Nagios Server
-nagios_server_fqdn: "Fill in"
+nagios_server_fqdn: "{{ lookup('env', 'NAGIOS_SERVER_FQDN') }}"
 
 # The fully qualified domain name or IP address of the machine you are adding to be monitored
 #server_fqdn: "To Be Filled In"     # Covered above
@@ -179,5 +183,38 @@ tagged_release_version: "v7.10.6"
 
 # The root password for your MySQL, MariaDB or Percona Server DB instance to create the DB and user.
 #mysql_root_password: "your MySQL root password"    # Covered above
+
+
+#####   Role - restore-bareos-backup     #####
+
+
+# The name of the client listed inside Bareos Server that you want to restore
+restore_bareos_bareos_client_to_restore: "Fill in"
+
+restore_bareos_fileset: "{{ restore_bareos_bareos_client_to_restore }}-FileSet"
+
+restore_bareos_destination_client: "{{ host_name }}"
+
+
+#####   Role - restore-db-and-files     #####
+
+# The root password for your MySQL, MariaDB or Percona Server DB instance to create the DB and user.
+# mysql_root_password: "{{ percona_server_root_password }}"  // Already covered in setup-mysql-backups role
+
+# The name of the database to restore
+db_name: "Fill in"
+
+# Absolute file path where Bareos files were restored to
+path_to_restored_files: "/tmp/bareos-restores"
+
+# File paths of Bareos restored files that need to be copied to some other path
+filesets_to_restore:
+  - /var/www/html
+  - Fill in any here
+
+# File path where DB dump file to restore is located
+db_backup_file_path: "{{ path_to_restored_files }}/backups/mysql/current"
+
+
 
 

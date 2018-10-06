@@ -17,39 +17,34 @@
 #  src: https://github.com/zaiste/ansible-essentials
 #  version: 0.0.3
 
-- name: create-digitalocean-droplet
-  src: git+https://github.com/stancel/create-digitalocean-droplet
-  version: 1.0.0
 
-- name: apache-webserver
-  src: git+https://github.com/stancel/apache-webserver
-  version: 1.0.0
+- src: stancel.create-digitalocean-droplet
 
-- src: tersmitten.percona-server
+- src: stancel.apache-webserver
 
-- name: setup-mysql-backups
-  src: git+https://github.com/stancel/setup-mysql-backups.git
-  version: 1.0.0
+- src: oefenweb.percona-server
 
-- name: install-bareos-client
-  src: https://github.com/stancel/install-bareos-client
-  version: 1.0.0
+- src: stancel.setup-mysql-backups
+
+- src: stancel.install-bareos-client
   
-- name: add-job-to-bareos-director
-  src: https://github.com/stancel/add-job-to-bareos-director
-  version: 1.0.0
+- src: stancel.add-job-to-bareos-director
 
-- name: install-nagios-client
-  src: https://github.com/stancel/install-nagios-client
-  version: 1.0.2
+- src: stancel.install-nagios-client
 
-- name: add-config-to-nagios-server
-  src: https://github.com/stancel/add-config-to-nagios-server
-  version: 1.0.0
+- src: stancel.add-config-to-nagios-server
 
-- name: git-download-suitecrm
-  src: https://github.com/stancel/git-download-suitecrm
-  version: 1.2.0
+- src: stancel.git-download-suitecrm
+
+- src: stancel.restore-bareos-backup
+
+- src: stancel.restore-db-and-files
+
+
+
+
+
+
 
 
 

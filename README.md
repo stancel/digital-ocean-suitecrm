@@ -32,11 +32,15 @@ Roles
 
 	- stancel.create-digitalocean-droplet
 	- stancel.apache-webserver
-	- tersmitten.percona-server
+	- oefenweb.percona-server
 	- stancel.setup-mysql-backups
 	- stancel.install-bareos-client
 	- stancel.add-job-to-bareos-director
 	- stancel.install-nagios-client
 	- stancel.add-config-to-nagios-server
 	- stancel.git-download-suitecrm
+	- stancel.restore-bareos-backup
+	- stancel.restore-db-and-files
+
+
 

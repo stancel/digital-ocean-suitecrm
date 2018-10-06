@@ -2,7 +2,7 @@
 
 - hosts: localhost 
   roles:
-    - create-digitalocean-droplet
+    - stancel.create-digitalocean-droplet
 
 - hosts: new_server
   gather_facts: false
@@ -17,16 +17,21 @@
 
 - hosts: new_server
   roles:
-    - apache-webserver
-    - tersmitten.percona-server
-    - setup-mysql-backups
-    - install-bareos-client
-    - install-nagios-client
-    - git-download-suitecrm
+    - stancel.apache-webserver
+    - oefenweb.percona-server
+    - stancel.setup-mysql-backups
+    - stancel.install-bareos-client
+    - stancel.install-nagios-client
+    - stancel.git-download-suitecrm
 
 - hosts: backups monitoring 
   roles:
-    - add-job-to-bareos-director
-    - add-config-to-nagios-server
+    - stancel.add-job-to-bareos-director
+    - stancel.add-config-to-nagios-server
+    - stancel.restore-bareos-backup
+
+- hosts: new_server
+  roles:
+    - stancel.restore-db-and-files
 
 
