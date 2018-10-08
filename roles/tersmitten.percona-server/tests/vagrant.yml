@@ -1,9 +1,0 @@
-# test file for percona-server
----
-- hosts: all
-  remote_user: vagrant
-  become: true
-  roles:
-    - ../../
-  vars:
-    percona_server_version: 5.7

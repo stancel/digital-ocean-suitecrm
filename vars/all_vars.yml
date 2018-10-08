@@ -56,7 +56,7 @@ ssl_certificate_key_file: "{{ lookup('file', '{{ ssl_cert_key_file_path }}') }}"
 ssl_ca_certificate_file: "{{ lookup('file', '{{ ssl_ca_cert_file_path }}') }}" 
 
 
-#####   Role - tersmitten.percona-server    #####
+#####   Role - oefenweb.percona-server    #####
 
 percona_server_version: 5.7
 
@@ -209,8 +209,8 @@ path_to_restored_files: "/tmp/bareos-restores"
 
 # File paths of Bareos restored files that need to be copied to some other path
 filesets_to_restore:
-  - /var/www/html
-  - Fill in any here
+  - "/var/www/html"
+  - "Fill in any here"
 
 # File path where DB dump file to restore is located
 db_backup_file_path: "{{ path_to_restored_files }}/backups/mysql/current"

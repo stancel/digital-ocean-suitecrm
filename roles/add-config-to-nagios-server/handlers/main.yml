@@ -1,9 +1,0 @@
----
-# handlers file for add-config-to-nagios-server
-
-- name: reload-nagios
-  become: true
-  become_method: sudo
-  action: service name=nagios state=restarted
-
-
