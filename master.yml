@@ -28,10 +28,10 @@
   roles:
     - stancel.add-job-to-bareos-director
     - stancel.add-config-to-nagios-server
-    - stancel.restore-bareos-backup
+    - stancel.restore_bareos_backup
 
 - hosts: new_server
   roles:
-    - stancel.restore-db-and-files
+    - stancel.restore_db_and_files
 
 

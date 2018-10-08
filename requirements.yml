@@ -36,9 +36,9 @@
 
 - src: stancel.git-download-suitecrm
 
-- src: stancel.restore-bareos-backup
+- src: stancel.restore_bareos_backup
 
-- src: stancel.restore-db-and-files
+- src: stancel.restore_db_and_files
 
 
 
