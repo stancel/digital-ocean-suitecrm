@@ -39,8 +39,8 @@ Roles
 	- stancel.install-nagios-client
 	- stancel.add-config-to-nagios-server
 	- stancel.git-download-suitecrm
-	- stancel.restore-bareos-backup
-	- stancel.restore-db-and-files
+	- stancel.restore_bareos_backup
+	- stancel.restore_db_and_files
 
 
 
