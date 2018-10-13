@@ -175,6 +175,13 @@ nagios_friendly_name: "Fill in"
 # Choose the git tagged release that you would like to download and install. Comment this out if using a git branch instead.
 tagged_release_version: "v7.10.6"
 
+# Is this a "new", "upgrade" or "restore" installation? "new" and "upgrade" installs install files from Git, "restore" skips any git deployments and expect a later role to restore files to the needed directory. Default is "new".
+installation_type: "new"
+
+# Is this instance to be used for a "dev", "qa" or "prod" environment? Only "prod" environments will deploy the SuiteCRM schedulers. Default is "prod"
+environment_type: "prod"
+
+
 # The DB user to create when to be used by the SuiteCRM application
 #db_user: "suitecrmDbUser"                      #included in vault.yml
 

@@ -18,7 +18,7 @@ client_password: "Fill in"
 #####   Role - git-download-mantis     #####
 
 # The DB user to create when to be used by the SuiteCRM application
-db_user: "Fill inr"
+db_user: "Fill in"
 
 # The password for the DB user being created
 db_password: "Fill in"
