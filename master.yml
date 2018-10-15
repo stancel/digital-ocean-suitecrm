@@ -29,6 +29,7 @@
 - hosts: new_server
   tags:
     - configuration
+  roles:
     - stancel.setup-mysql-backups
     - stancel.install-bareos-client
     - stancel.install-nagios-client

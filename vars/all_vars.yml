@@ -181,6 +181,8 @@ installation_type: "new"
 # Is this instance to be used for a "dev", "qa" or "prod" environment? Only "prod" environments will deploy the SuiteCRM schedulers. Default is "prod"
 environment_type: "prod"
 
+# The database to create when setting up SuiteCRM
+db_name: "suitecrm"
 
 # The DB user to create when to be used by the SuiteCRM application
 #db_user: "suitecrmDbUser"                      #included in vault.yml
@@ -217,7 +219,6 @@ path_to_restored_files: "/tmp/bareos-restores"
 # File paths of Bareos restored files that need to be copied to some other path
 filesets_to_restore:
   - "/var/www/html"
-  - "Fill in any here"
 
 # File path where DB dump file to restore is located
 db_backup_file_path: "{{ path_to_restored_files }}/backups/mysql/current"

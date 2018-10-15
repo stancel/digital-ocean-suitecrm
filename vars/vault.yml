@@ -3,9 +3,10 @@
 
 
 
-#####   Role - tersmitten.percona-server    #####
+#####   Role - oefenweb.percona-server    #####
 
-percona_server_root_password: 'Fill in'
+# Fill in whatever you'd like your MySQL Root Password to be
+percona_server_root_password: "Fill in"
       
 
 
