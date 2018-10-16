@@ -54,6 +54,8 @@ Roles
 	- stancel.git-download-suitecrm
 	- stancel.restore_bareos_backup
 	- stancel.restore_db_and_files
+	- stancel.git_deploy_setup 
+
 
 
 
