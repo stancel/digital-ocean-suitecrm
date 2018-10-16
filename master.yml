@@ -33,6 +33,7 @@
     - stancel.setup-mysql-backups
     - stancel.install-bareos-client
     - stancel.install-nagios-client
+    - stancel.git_deploy_setup
 
 - hosts: new_server
   tags:
