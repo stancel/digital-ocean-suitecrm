@@ -29,10 +29,17 @@ Execution:
 	ansible-playbook master.yml -e @vars/all_vars.yml -e @vars/vault.yml -i /Users/Brad/.ansible/hosts		
 ```
 
+	New install that does not have monitoring, backups or git deployments setup:	
+	
+```
+	ansible-playbook master.yml -e @vars/all_vars.yml -e @vars/vault.yml -i /Users/Brad/.ansible/hosts --skip-tags "configuration,restore"
+```
+
+
 Requirements
 ------------
 
-Must use DigitalOcean and have an API Key setup and saved into an environment variable listed in vars/all_vars.yml
+Must use DigitalOcean and have an API Key setup and saved into an environment variable listed in vars/all_vars.yml. If you want to use any of the roles with a tag of "configuration" or "restore" then you'll need to have a [Nagios Monitoring Server](https://www.nagios.org/projects/nagios-core/) and [Bareos Backup Server](http://www.bareos.org/en/) installed.
 
 Variables
 ------------
@@ -57,5 +64,9 @@ Roles
 	- stancel.git_deploy_setup 
 
 
+Author Information
+------------------
+
+[Brad Stancel](https://github.com/stancel)
 
 

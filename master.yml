@@ -33,7 +33,6 @@
     - stancel.setup-mysql-backups
     - stancel.install-bareos-client
     - stancel.install-nagios-client
-    - stancel.git_deploy_setup
 
 - hosts: new_server
   tags:
@@ -50,7 +49,7 @@
     - stancel.add-job-to-bareos-director
     - stancel.add-config-to-nagios-server
 
-- hosts: new_server
+- hosts: backups
   tags:
     - restore
   roles:
@@ -61,5 +60,12 @@
     - restore
   roles:
     - stancel.restore_db_and_files
+
+- hosts: new_server
+  tags:
+    - configuration
+  roles:
+    - stancel.git_deploy_setup
+
 
 

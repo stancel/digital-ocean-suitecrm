@@ -140,7 +140,6 @@ archive_device: "/z-storage/backups/{{ host_name }}"
 
 filesets_to_backup:
   - File = "/var/www/html"
-  - File = "/etc/apache2"
   - File = "/backups/mysql/current"
 filesets_to_exclude:
   - File = "/var/www/html/.github"
@@ -197,13 +196,13 @@ nagios_friendly_name: "Fill in"
 #####   Role - git-download-suitecrm     #####
 
 # Choose the git tagged release that you would like to download and install. Comment this out if using a git branch instead.
-tagged_release_version: "v7.10.6"
+tagged_release_version: "v7.10.9"
 
 # Is this a "new", "upgrade" or "restore" installation? "new" and "upgrade" installs install files from Git, "restore" skips any git deployments and expect a later role to restore files to the needed directory. Default is "new".
-installation_type: "new"
+installation_type: "Fill in"
 
 # Is this instance to be used for a "dev", "qa" or "prod" environment? Only "prod" environments will deploy the SuiteCRM schedulers. Default is "prod"
-environment_type: "prod"
+environment_type: "Fill in"
 
 # The database to create when setting up SuiteCRM
 db_name: "suitecrm"
@@ -220,13 +219,17 @@ db_name: "suitecrm"
 
 #####   Role - restore-bareos-backup     #####
 
-
-# The name of the client listed inside Bareos Server that you want to restore
-restore_bareos_bareos_client_to_restore: "Fill in"
-
+# The Bareos client name of the server where you want to restore this backup to.
 restore_bareos_fileset: "{{ restore_bareos_bareos_client_to_restore }}-FileSet"
 
+# The name of the Bareos Fileset to restore
 restore_bareos_destination_client: "{{ host_name }}"
+
+# Restore files from a specific Bareos Backup Job ID
+#restore_bareos_jobid: 3
+
+# Restore files before a specific date
+#restore_bareos_date_before: "2018-10-02 00:00:00"
 
 
 #####   Role - restore-db-and-files     #####
@@ -235,7 +238,7 @@ restore_bareos_destination_client: "{{ host_name }}"
 # mysql_root_password: "{{ percona_server_root_password }}"  // Already covered in setup-mysql-backups role
 
 # The name of the database to restore
-db_name: "Fill in"
+db_name: "suitecrm"
 
 # Absolute file path where Bareos files were restored to
 path_to_restored_files: "/tmp/bareos-restores"
