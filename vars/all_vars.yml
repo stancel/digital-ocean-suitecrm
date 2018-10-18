@@ -219,6 +219,9 @@ db_name: "suitecrm"
 
 #####   Role - restore-bareos-backup     #####
 
+# The name of the client listed inside Bareos Server that you want to restore
+restore_bareos_bareos_client_to_restore: "Fill in"
+
 # The Bareos client name of the server where you want to restore this backup to.
 restore_bareos_fileset: "{{ restore_bareos_bareos_client_to_restore }}-FileSet"
 
