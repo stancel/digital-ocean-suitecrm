@@ -92,7 +92,7 @@ create_digitalocean_droplet_region: "nyc1"
 #####   Role - apache-webserver     #####
 
 # The Fully Qualified Domain Name you'll be using for the server you are creating.
-apache_webserver_server_fqdn: "{{ host_name }}"
+apache_webserver_server_fqdn: "{{ server_fqdn }}"
 
 # The Apache Server Alias directive
 apache_webserver_server_alias: "*.{{server_fqdn}}"
